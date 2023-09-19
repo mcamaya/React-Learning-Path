@@ -1,8 +1,8 @@
-function ToDoItem() {
+function ToDoItem({content}) {
   return (
     <li>
       <span>V</span>
-      <p>Texto del ToDo</p>
+      <p>{content}</p>
       <span>X</span>
     </li>
   );
