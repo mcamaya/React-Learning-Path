@@ -4,7 +4,6 @@ import ToDoItem from './components/ToDoItem';
 import ToDoSearch from './components/ToDoSearch';
 import ToDoList from './components/ToDoList';
 import CreateToDoButton from './components/CreateToDoButton';
-import './App.css';
 
 const defaultTodos = [
   { text: 'Cortar Cebolla', completed: true },
@@ -22,9 +21,10 @@ function App() {
       <ToDoList>
         {defaultTodos.map(todo => (
           <ToDoItem 
-            key={todo.text} /* Cuando trabajamos con arrays es necesario enviar la propiedad 'key' -> fuciona como id */
+            key={todo.text} /* Cuando trabajamos con arrays es necesario enviar la propiedad 'key' -> fuciona como uid */
             content={todo.text} 
-            completed={todo.completed} />
+            completed={todo.completed} 
+          />
         ))}
       </ToDoList>
 
