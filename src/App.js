@@ -1,4 +1,3 @@
-import React from 'react';
 import ToDoCounter from './components/ToDoCounter';
 import ToDoItem from './components/ToDoItem';
 import ToDoSearch from './components/ToDoSearch';
@@ -14,7 +13,7 @@ const defaultTodos = [
 
 function App() {
   return (
-    <React.Fragment>
+    <div className='main-container'>
       <ToDoCounter completed={16} total={20} />
       <ToDoSearch />
 
@@ -29,7 +28,7 @@ function App() {
       </ToDoList>
 
       <CreateToDoButton />
-    </React.Fragment> /* Nos permite crear un contenedor que será invisible dentro del html -> alternativa al div */
+    </div> /* Nos permite crear un contenedor que será invisible dentro del html -> alternativa al div */
   );
 }
 
