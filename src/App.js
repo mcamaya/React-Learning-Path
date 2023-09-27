@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import ToDoCounter from './components/ToDoCounter';
 import ToDoItem from './components/ToDoItem';
 import ToDoSearch from './components/ToDoSearch';
@@ -8,21 +9,54 @@ const defaultTodos = [
   { text: 'Cortar Cebolla', completed: true },
   { text: 'Llorar con la llorona', completed: false },
   { text: 'Terminar curso Intro React', completed: false },
-  { text: 'Colgar la ropa', completed: true },
+  { text: 'Usar estados derivados', completed: true },
+  { text: 'Colgar la ropa', completed: false }
 ]
 
 function App() {
+  const [todos, setTodos] = useState(defaultTodos);
+  const [searchValue, setSearchValue] = useState('');
+
+  /* ToDo Counter */
+  const completedTodos = todos.filter(todos => !!todos.completed).length; // La expresión '!!' convierte en booleano la siguiente expression
+  const totalTodos = todos.length;
+
+  /* ToDo Search Bar */
+  const searchedTodos = todos.filter((todo) => {
+    const todoText = todo.text.toLowerCase();
+    const inputText = searchValue.toLowerCase();
+    return todoText.includes(inputText);
+  });
+
+  /* complete ToDo's */
+  function toCompleteTodos(text) {
+    const newTodos = [...todos];
+    const index = newTodos.findIndex(todo => todo.text === text);
+    newTodos[index].completed = true;
+    setTodos(newTodos);
+  }
+
+  /* deleted ToDo's */
+  function toDeleteTodos(text) {
+    const newTodos = [...todos];
+    const index = newTodos.findIndex(todo => todo.text === text);
+    newTodos.splice(index, 1)
+    setTodos(newTodos);
+  }
+
   return (
     <div className='main-container'>
-      <ToDoCounter completed={16} total={20} />
-      <ToDoSearch />
+      <ToDoCounter completed={completedTodos} total={totalTodos} />
+      <ToDoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
 
       <ToDoList>
-        {defaultTodos.map(todo => (
+        {searchedTodos.map(todo => (
           <ToDoItem 
             key={todo.text} /* Cuando trabajamos con arrays es necesario enviar la propiedad 'key' -> fuciona como uid */
             content={todo.text} 
-            completed={todo.completed} 
+            completed={todo.completed}
+            onComplete={() => toCompleteTodos(todo.text)}
+            onDelete={() => toDeleteTodos(todo.text)}
           />
         ))}
       </ToDoList>

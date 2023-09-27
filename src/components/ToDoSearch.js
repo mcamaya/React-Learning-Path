@@ -1,9 +1,7 @@
-import React from "react";
 import "./ToDoSearch.css";
 
-function ToDoSearch() {
-	const [searchValue, setSearchValue] = React.useState('');
-
+function ToDoSearch({searchValue, setSearchValue}) {
+	// console.log(searchValue);
 	return (
 		<div class="coolinput">
 			<label for="input" class="text">Buscar ToDo:</label>
