@@ -13,32 +13,34 @@ import CreateToDoButton from "./components/CreateToDoButton";
   { text: 'Colgar la ropa', completed: false }
 ] */
 
-// localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
-// localStorage.removeItem('TODOS_V1');
+function useLocalStorage(fieldName, initialValue) {
+  const localStorageInfo = localStorage.getItem(fieldName);
+  let parsedItem;
 
-function App() {
-  const localStorageInfo = localStorage.getItem("TODOS_V1");
-  console.log(localStorageInfo);
-  let parsedTodos;
-
-  if (!localStorageInfo || localStorageInfo ==  false) {
-    parsedTodos = [];
-    localStorage.setItem("TODOS_V1", JSON.stringify([]));
+  if (!localStorageInfo || localStorageInfo == false) {
+    parsedItem = initialValue;
+    localStorage.setItem(fieldName, JSON.stringify(initialValue));
   } else {
-    parsedTodos = JSON.parse(localStorageInfo);
+    parsedItem = JSON.parse(localStorageInfo);
   }
 
-  const [todos, setTodos] = useState(parsedTodos);
+  const [items, setItems] = useState(parsedItem);
+
+  const saveItems = (newItem) => {
+    localStorage.setItem(fieldName, JSON.stringify(newItem));
+    setItems(newItem);
+  };
+
+  return [items, saveItems];
+}
+
+function App() {
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = useState("");
 
   /* ToDo Counter */
   const completedTodos = todos.filter((todos) => !!todos.completed).length; // La expresión '!!' convierte en booleano la siguiente expression
   const totalTodos = todos.length;
-
-  const saveTodos = (newTodos) => {
-    localStorage.setItem("TODOS_V1", JSON.stringify(newTodos));
-    setTodos(newTodos);
-  };
 
   /* ToDo Search Bar */
   const searchedTodos = todos.filter((todo) => {
