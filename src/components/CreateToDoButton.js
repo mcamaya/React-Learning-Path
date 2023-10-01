@@ -2,7 +2,7 @@ import './CreateToDoButton.css'
 export default function CreateToDoButton(){
     return (
     <button 
-        class="button" 
+        className="button" 
         onClick={(event) => {
             console.log('Le diste click');
             console.log(event.target);

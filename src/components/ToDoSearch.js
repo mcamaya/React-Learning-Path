@@ -3,12 +3,12 @@ import "./ToDoSearch.css";
 function ToDoSearch({searchValue, setSearchValue}) {
 	// console.log(searchValue);
 	return (
-		<div class="coolinput">
-			<label for="input" class="text">Buscar ToDo:</label>
+		<div className="coolinput">
+			<label htmlFor="input" className="text">Buscar ToDo:</label>
 			<input 
 				type="text" 
 				placeholder="Llorar con la llorona..." 
-				class="input" 
+				className="input" 
 				value={searchValue}
 				onChange={(event) => {
 					setSearchValue(event.target.value);
