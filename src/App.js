@@ -4,38 +4,19 @@ import ToDoItem from "./components/ToDoItem";
 import ToDoSearch from "./components/ToDoSearch";
 import ToDoList from "./components/ToDoList";
 import CreateToDoButton from "./components/CreateToDoButton";
+import useLocalStorage from "./hooks/useLocalStorage";
 
-/* const defaultTodos = [
+const defaultTodos = [
   { text: 'Cortar Cebolla', completed: true },
   { text: 'Llorar con la llorona', completed: false },
   { text: 'Terminar curso Intro React', completed: false },
   { text: 'Usar estados derivados', completed: true },
   { text: 'Colgar la ropa', completed: false }
-] */
+]
 
-function useLocalStorage(fieldName, initialValue) {
-  const localStorageInfo = localStorage.getItem(fieldName);
-  let parsedItem;
-
-  if (!localStorageInfo || localStorageInfo == false) {
-    parsedItem = initialValue;
-    localStorage.setItem(fieldName, JSON.stringify(initialValue));
-  } else {
-    parsedItem = JSON.parse(localStorageInfo);
-  }
-
-  const [items, setItems] = useState(parsedItem);
-
-  const saveItems = (newItem) => {
-    localStorage.setItem(fieldName, JSON.stringify(newItem));
-    setItems(newItem);
-  };
-
-  return [items, saveItems];
-}
 
 function App() {
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', defaultTodos);
   const [searchValue, setSearchValue] = useState("");
 
   /* ToDo Counter */
